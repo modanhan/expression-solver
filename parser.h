@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-namespace parser{
+namespace expression_solver{
 	std::vector<std::string> parse(std::string s);
 }
 #endif

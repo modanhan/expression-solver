@@ -1,6 +1,6 @@
 #include "parser.h"
 
-namespace parser{
+namespace expression_solver{
 	using namespace std;
 	string input;
 	vector<string> processed;
