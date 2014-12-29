@@ -1,6 +1,9 @@
+all:	main.exe clean
 main.exe:	main.obj parser.obj
 	cl main.obj parser.obj
 main.obj:	main.cpp
 	cl main.cpp -c
 parser.obj:	parser.cpp
 	cl parser.cpp -c
+clean:
+	del *.obj
