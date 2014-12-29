@@ -1,5 +1,4 @@
 #include "parser.h"
-#include <iostream>
 
 namespace parser{
 	using namespace std;
@@ -91,7 +90,6 @@ namespace parser{
 			it = find(it, s.end(), ' ');
 		}
 		input = s;
-		cout << input << "\n";
 		process();
 		find();
 		do {
