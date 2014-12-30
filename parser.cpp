@@ -28,6 +28,7 @@ namespace expression_solver{
 				processed.push_back(input.substr(bi, ei - bi));
 			}
 			if (ei == 0 || (input[ei] == '-'&&op(input[ei - 1]))){
+				processed.push_back("(");
 				processed.push_back("0");
 			}
 			processed.push_back(input.substr(ei, 1));
