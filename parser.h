@@ -5,5 +5,6 @@
 #include <string>
 namespace expression_solver{
 	std::vector<std::string> parse(std::string s);
+	void debug(bool b);
 }
 #endif
