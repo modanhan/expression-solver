@@ -1,6 +1,6 @@
-all:	main.exe clean
-main.exe:	main.obj parser.obj evaluator.obj
-	cl main.obj parser.obj evaluator.obj
+all:	expression-solver.exe clean
+expression-solver.exe:	main.obj parser.obj evaluator.obj
+	cl main.obj parser.obj evaluator.obj -o expression-solver.exe
 main.obj:	main.cpp
 	cl main.cpp -c
 parser.obj:	parser.cpp
