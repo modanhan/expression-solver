@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include "parser.h"
 
 
@@ -35,6 +36,7 @@ namespace expression_solver{
 
 	void process(){
 		int bi = 0, ei = 0;
+		stack<int> negs;
 		while (bi < input.size()) {
 			while (ei < input.size() && !op(input[ei])) {
 				ei++;
@@ -42,9 +44,22 @@ namespace expression_solver{
 			if (bi != ei) {
 				processed.push_back(input.substr(bi, ei - bi));
 			}
+			if (!negs.empty()){
+				if (input[ei] == '('){
+					negs.top()++;
+				}
+				else if (input[ei] == ')'){
+					negs.top()--;
+				}
+				if (negs.top() == 0){
+					processed.push_back(")");
+					negs.pop();
+				}
+			}
 			if ((input[ei] == '-') && (ei == 0 || op(input[ei - 1]))){
 				processed.push_back("(");
 				processed.push_back("0");
+				negs.push(0);
 			}
 			processed.push_back(input.substr(ei, 1));
 			ei++;
