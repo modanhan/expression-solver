@@ -36,30 +36,44 @@ namespace expression_solver{
 
 	void process(){
 		int bi = 0, ei = 0;
-		stack<int> negs;
+		stack<int> ns;
 		while (bi < input.size()) {
 			while (ei < input.size() && !op(input[ei])) {
 				ei++;
 			}
+
 			if (bi != ei) {
 				processed.push_back(input.substr(bi, ei - bi));
 			}
-			if (!negs.empty()){
-				if (input[ei] == '('){
-					negs.top()++;
+
+			if (!ns.empty()){
+				if (input[bi] == '(' || ((input[bi] == '-') && (op(input[bi - 1])))){
+					ns.top()++;
 				}
-				else if (input[ei] == ')'){
-					negs.top()--;
+				else if (input[bi] == ')'){
+					ns.top()--;
 				}
-				if (negs.top() == 0){
-					processed.push_back(")");
-					negs.pop();
+				while (1){
+					if (ns.top() == 0){
+						processed.push_back(")");
+						ns.pop();
+						if (ns.empty()){
+							break;
+						}
+						else{
+							ns.top()--;
+						}
+					}
+					else{
+						break;
+					}
 				}
 			}
-			if ((input[ei] == '-') && (ei == 0 || op(input[ei - 1]))){
+
+			if ((input[bi] == '-') && (bi == 0 || op(input[bi - 1]))){
 				processed.push_back("(");
 				processed.push_back("0");
-				negs.push(0);
+				ns.push(0);
 			}
 			processed.push_back(input.substr(ei, 1));
 			ei++;
