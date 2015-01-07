@@ -35,49 +35,79 @@ namespace expression_solver{
 	}
 
 	void process(){
-		int bi = 0, ei = 0;
 		stack<int> ns;
-		while (bi < input.size()) {
-			while (ei < input.size() && !op(input[ei])) {
-				ei++;
-			}
-
-			if (bi != ei) {
-				processed.push_back(input.substr(bi, ei - bi));
-			}
-
-			if (!ns.empty()){
-				if (input[bi] == '(' || ((input[bi] == '-') && (op(input[bi - 1])))){
-					ns.top()++;
-				}
-				else if (input[bi] == ')'){
-					ns.top()--;
-				}
-				while (1){
-					if (ns.top() == 0){
-						processed.push_back(")");
-						ns.pop();
-						if (ns.empty()){
-							break;
+		string num = "";
+		for (int i = 0; i < input.size(); i++){
+			if (op(input[i])){
+				if (num != ""){
+					processed.push_back(num);
+					if (!ns.empty()){
+						while (!ns.empty()){
+							if (ns.top() == 0){
+								processed.push_back(")");
+								ns.pop();
+								if (!ns.empty()){
+									ns.top()--;
+								}
+							}
+							else{
+								break;
+							}
 						}
-						else{
-							ns.top()--;
-						}
+					}
+				}
+				bool neg = (input[i] == '-' && (i == 0 || (op(input[i - 1]) && input[i - 1] != ')')));
+				if (!ns.empty()){
+					if (input[i] == '('){
+						ns.top()++;
+					}
+					else if (input[i] == ')'){
+						ns.top()--;
+					}
+					if (neg){
+						ns.top()++;
 					}
 					else{
-						break;
+						while (!ns.empty()){
+							if (ns.top() == 0){
+								processed.push_back(")");
+								ns.pop();
+								if (!ns.empty()){
+									ns.top()--;
+								}
+							}
+							else{
+								break;
+							}
+						}
 					}
 				}
+				if (neg){
+					processed.push_back("(");
+					processed.push_back("0");
+					ns.push(0);
+				}
+				processed.push_back(input.substr(i, 1));
+				num = "";
 			}
-
-			if ((input[bi] == '-') && (bi == 0 || op(input[bi - 1]))){
-				processed.push_back("(");
-				processed.push_back("0");
-				ns.push(0);
+			else{
+				num += input[i];
 			}
-			processed.push_back(input.substr(ei, 1));
-			ei++;
-			bi = ei;
+		}
+		if (num != ""){
+			processed.push_back(num);
+		}
+		while (!ns.empty()){
+			if (ns.top() == 0){
+				processed.push_back(")");
+				ns.pop();
+				if (!ns.empty()){
+					ns.top()--;
+				}
+			}
+			else{
+				break;
+			}
 		}
 		if (debugon){
 			for (string a : processed){
