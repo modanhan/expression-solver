@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
 \ti represents 1 imaginary unit.\n\n\
 Known issues:\n\
 \tLimited precision\n\n\
-Input:\tany correct mathematical expression.\n\
+Input:\tAny correct mathematical expression.\n\
 \tEnter exit to quit the program.\n\
 Output:\t(x, y) where x is the real part of the evaluated expression, \
 and y is the imaginary part.\n\n\
@@ -44,6 +44,7 @@ Examples:\n\
 					}
 				default:
 					cout << "Unknown option: " << argv[i] << "\n";
+					cout << "Enter " << argv[0] << " --help for help.\n";
 					return 0;
 				}
 			}
