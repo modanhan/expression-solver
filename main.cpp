@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <complex>
+#include <string.h>
 
 #include "parser.h"
 #include "evaluator.h"

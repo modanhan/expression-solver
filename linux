@@ -1,0 +1,5 @@
+a.out:	main.cpp evaluator.cpp parser.cpp
+	g++ main.cpp -c -std=c++0x
+	g++ evaluator.cpp -c -std=c++0x
+	g++ parser.cpp -c -std=c++0x
+	g++ main.o parser.o evaluator.o -std=c++0x
